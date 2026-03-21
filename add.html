@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Product</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* BODY BACKGROUND */
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url("https://static.vecteezy.com/system/resources/thumbnails/021/736/703/small/doodle-lines-arrows-circles-and-curves-hand-drawn-design-elements-isolated-on-white-background-for-infographic-illustration-vector.jpg"); /* CHANGE IMAGE HERE */
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+    }
+
+    /* CENTER FORM (NOT FULL CENTER because navbar exists) */
+    .form-container {
+      min-height: calc(100vh - 70px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* CARD */
+    .form-card {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .form-card h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .btn-dark {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ✅ NAVBAR (same as index.html) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand fw-bold" href="index.html">CampusMart</a>
+
+    <div class="ms-auto">
+      <a href="add.html" class="btn btn-outline-light me-2">Sell Item</a>
+      <a href="login.html" class="btn btn-light">Login</a>
+    </div>
+  </nav>
+
+  <!-- FORM SECTION -->
+  <div class="form-container">
+    <div class="form-card">
+      <h2>Add Product</h2>
+
+      <input id="title" class="form-control mb-3" placeholder="Product Title">
+      <div class="input-group mb-3">
+    <span class="input-group-text">₹</span>
+    <input id="price" type="number" class="form-control" placeholder="Enter price">
+    </div>
+      <input id="image" class="form-control mb-3" placeholder="Image URL">
+      <textarea id="description" class="form-control mb-3" placeholder="Description"></textarea>
+
+      <button class="btn btn-dark" onclick="addProduct()">Add Product</button>
+    </div>
+  </div>
+
+  <script>
+    function addProduct() {
+      let products = JSON.parse(localStorage.getItem("products")) || [];
+
+      let newProduct = {
+        title: document.getElementById("title").value,
+        price: document.getElementById("price").value,
+        image: document.getElementById("image").value,
+        description: document.getElementById("description").value
+      };
+
+      products.push(newProduct);
+      localStorage.setItem("products", JSON.stringify(products));
+
+      alert("Product Added!");
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>
