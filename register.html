@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register – CampusMart</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+      body {
+        font-family: 'DM Sans', sans-serif;
+        background-color: #f8f9fa;
+        min-height: 100vh;
+      }
+
+      /* ── SPLIT LAYOUT ─────────────────────────────────────── */
+      .register-wrapper {
+        min-height: calc(100vh - 56px);
+        display: flex;
+      }
+
+      /* LEFT — form panel (flipped vs login) */
+      .register-form-panel {
+        width: 520px;
+        flex-shrink: 0;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5rem 3.5rem;
+      }
+
+      .register-form-panel .inner { width: 100%; }
+
+      /* RIGHT — decorative panel */
+      .register-visual {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+        background:
+          linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.40) 100%),
+          url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80")
+          center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
+      }
+
+      /* Animated grid overlay */
+      .register-visual::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+        background-size: 40px 40px;
+        animation: grid-drift 12s linear infinite;
+      }
+
+      @keyframes grid-drift {
+        from { background-position: 0 0; }
+        to   { background-position: 40px 40px; }
+      }
+
+      .visual-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: #fff;
+      }
+
+      .visual-content .brand-icon {
+        font-size: 3.5rem;
+        display: block;
+        margin-bottom: 1.25rem;
+      }
+
+      .visual-content h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        font-size: 2rem;
+        line-height: 1.25;
+        margin-bottom: 1rem;
+      }
+
+      .visual-content p {
+        color: rgba(255,255,255,0.7);
+        font-size: 0.95rem;
+        max-width: 300px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      /* Step indicators on visual panel */
+      .step-list {
+        margin-top: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: left;
+      }
+
+      .step-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .step-num {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 700;
+        flex-shrink: 0;
+        color: #fff;
+      }
+
+      .step-text {
+        font-size: 0.88rem;
+        color: rgba(255,255,255,0.85);
+        font-weight: 500;
+      }
+
+      /* ── FORM HEADER ──────────────────────────────────────── */
+      .form-header {
+        margin-bottom: 1.75rem;
+      }
+
+      .form-header .eyebrow {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-header h1 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: #111;
+        margin-bottom: 0.4rem;
+      }
+
+      .form-header p {
+        color: #6c757d;
+        font-size: 0.88rem;
+      }
+
+      /* ── INPUTS ───────────────────────────────────────────── */
+      .field-group {
+        margin-bottom: 1rem;
+      }
+
+      .field-group label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #444;
+        margin-bottom: 0.35rem;
+        display: block;
+      }
+
+      .field-group .input-wrap {
+        position: relative;
+      }
+
+      .field-group .input-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #adb5bd;
+        font-size: 1rem;
+        pointer-events: none;
+      }
+
+      .field-group input,
+      .field-group select {
+        width: 100%;
+        padding: 0.72rem 1rem 0.72rem 2.6rem;
+        border: 1.5px solid #e0e0e0;
+        border-radius: 10px;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.9rem;
+        color: #111;
+        background: #fafafa;
+        transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        outline: none;
+        appearance: none;
+      }
+
+      .field-group input::placeholder { color: #bbb; }
+
+      .field-group input:focus,
+      .field-group select:focus {
+        border-color: #111;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.07);
+      }
+
+      /* valid / invalid states */
+      .field-group input.is-valid   { border-color: #2f9e44; }
+      .field-group input.is-invalid { border-color: #c92a2a; }
+
+      .field-hint {
+        font-size: 0.74rem;
+        color: #adb5bd;
+        margin-top: 0.3rem;
+      }
+
+      .field-error {
+        font-size: 0.74rem;
+        color: #c92a2a;
+        margin-top: 0.3rem;
+        display: none;
+      }
+
+      /* two-col row */
+      .field-row {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .field-row .field-group { flex: 1; }
+
+      /* toggle password */
+      .toggle-pw {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #adb5bd;
+        font-size: 1rem;
+        padding: 0;
+        transition: color 0.2s;
+      }
+      .toggle-pw:hover { color: #111; }
+
+      /* ── PASSWORD STRENGTH ────────────────────────────────── */
+      .strength-bar {
+        display: flex;
+        gap: 4px;
+        margin-top: 0.4rem;
+      }
+
+      .strength-bar span {
+        flex: 1;
+        height: 3px;
+        border-radius: 2px;
+        background: #e8e8e8;
+        transition: background 0.3s;
+      }
+
+      .strength-label {
+        font-size: 0.72rem;
+        margin-top: 0.25rem;
+        color: #adb5bd;
+      }
+
+      /* ── TERMS ────────────────────────────────────────────── */
+      .terms-check {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin: 1rem 0 1.25rem;
+        font-size: 0.8rem;
+        color: #555;
+        line-height: 1.5;
+      }
+
+      .terms-check input[type="checkbox"] {
+        width: 15px;
+        height: 15px;
+        accent-color: #111;
+        margin-top: 2px;
+        flex-shrink: 0;
+        cursor: pointer;
+      }
+
+      .terms-check a { color: #111; font-weight: 600; text-decoration: none; }
+      .terms-check a:hover { text-decoration: underline; }
+
+      /* ── SUBMIT BUTTON ────────────────────────────────────── */
+      .btn-register {
+        width: 100%;
+        padding: 0.82rem;
+        background: #111;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        transition: background 0.25s, transform 0.15s;
+      }
+
+      .btn-register:hover  { background: #222; transform: translateY(-1px); }
+      .btn-register:active { transform: translateY(0); }
+
+      /* ── ERROR BANNER ─────────────────────────────────────── */
+      .error-msg {
+        display: none;
+        background: #fff5f5;
+        border: 1px solid #ffc9c9;
+        color: #c92a2a;
+        font-size: 0.82rem;
+        padding: 0.6rem 0.85rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      /* ── SUCCESS OVERLAY ──────────────────────────────────── */
+      .success-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        z-index: 999;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .success-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        max-width: 320px;
+        animation: pop-in 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards;
+      }
+
+      @keyframes pop-in {
+        from { opacity: 0; transform: scale(0.85); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+
+      .success-card i {
+        font-size: 3rem;
+        color: #2f9e44;
+        display: block;
+        margin-bottom: 0.75rem;
+      }
+
+      .success-card h5 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        margin-bottom: 0.35rem;
+      }
+
+      .success-card p { color: #6c757d; font-size: 0.88rem; }
+
+      /* ── LOGIN LINK ───────────────────────────────────────── */
+      .login-link {
+        text-align: center;
+        font-size: 0.84rem;
+        color: #6c757d;
+        margin-top: 1.25rem;
+      }
+
+      .login-link a {
+        color: #111;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .login-link a:hover { text-decoration: underline; }
+
+      /* ── RESPONSIVE ───────────────────────────────────────── */
+      @media (max-width: 900px) {
+        .register-visual { display: none; }
+        .register-form-panel { width: 100%; padding: 2rem 1.5rem; }
+        .field-row { flex-direction: column; gap: 0; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <a class="navbar-brand fw-bold" href="index.html">CampusMart</a>
+      <div class="ms-auto">
+        <a href="add.html" class="btn btn-outline-light me-2">Sell Item</a>
+        <a href="login.html" class="btn btn-light">Login</a>
+      </div>
+    </nav>
+
+    <div class="register-wrapper">
+
+      <!-- LEFT — FORM PANEL -->
+      <div class="register-form-panel">
+        <div class="inner">
+
+          <div class="form-header">
+            <p class="eyebrow">Get started</p>
+            <h1>Create account</h1>
+            <p>Join your campus marketplace in under a minute.</p>
+          </div>
+
+          <!-- Error banner -->
+          <div class="error-msg" id="errorMsg">
+            <i class="bi bi-exclamation-circle-fill"></i>
+            <span id="errorText">Something went wrong.</span>
+          </div>
+
+          <!-- Name row -->
+          <div class="field-row">
+            <div class="field-group">
+              <label for="firstName">First Name</label>
+              <div class="input-wrap">
+                <i class="bi bi-person input-icon"></i>
+                <input type="text" id="firstName" placeholder="Ravi" />
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="lastName">Last Name</label>
+              <div class="input-wrap">
+                <i class="bi bi-person input-icon"></i>
+                <input type="text" id="lastName" placeholder="Sharma" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="field-group">
+            <label for="email">College Email</label>
+            <div class="input-wrap">
+              <i class="bi bi-envelope input-icon"></i>
+              <input type="email" id="email" placeholder="yourname@college.edu" autocomplete="email" />
+            </div>
+          </div>
+
+          <!-- Roll No -->
+          <div class="field-group">
+            <label for="rollNo">Roll Number</label>
+            <div class="input-wrap">
+              <i class="bi bi-123 input-icon"></i>
+              <input type="text" id="rollNo" placeholder="e.g. 23CSE045" />
+            </div>
+            <p class="field-hint">Used to verify you're a campus student.</p>
+          </div>
+
+          <!-- Department -->
+          <div class="field-group">
+            <label for="dept">Department</label>
+            <div class="input-wrap">
+              <i class="bi bi-mortarboard input-icon"></i>
+              <select id="dept">
+                <option value="" disabled selected>Select your department</option>
+                <option>Computer Science & Engineering</option>
+                <option>Information Technology</option>
+                <option>Electronics & Telecommunication</option>
+                <option>Mechanical Engineering</option>
+                <option>Civil Engineering</option>
+                <option>MBA / Management</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="field-group">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <i class="bi bi-lock input-icon"></i>
+              <input type="password" id="password" placeholder="Create a password" oninput="checkStrength(this.value)" />
+              <button class="toggle-pw" type="button" onclick="togglePw('password','pwIcon1')">
+                <i class="bi bi-eye" id="pwIcon1"></i>
+              </button>
+            </div>
+            <div class="strength-bar">
+              <span id="s1"></span><span id="s2"></span><span id="s3"></span><span id="s4"></span>
+            </div>
+            <p class="strength-label" id="strengthLabel">Min. 8 characters</p>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="field-group">
+            <label for="confirmPw">Confirm Password</label>
+            <div class="input-wrap">
+              <i class="bi bi-lock-fill input-icon"></i>
+              <input type="password" id="confirmPw" placeholder="Repeat your password" />
+              <button class="toggle-pw" type="button" onclick="togglePw('confirmPw','pwIcon2')">
+                <i class="bi bi-eye" id="pwIcon2"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Terms -->
+          <label class="terms-check">
+            <input type="checkbox" id="terms" />
+            I agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
+          </label>
+
+          <button class="btn-register" onclick="handleRegister()">
+            Create Account &nbsp;<i class="bi bi-arrow-right"></i>
+          </button>
+
+          <div class="login-link">
+            Already have an account? &nbsp;<a href="login.html">Sign in →</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT — VISUAL PANEL -->
+      <div class="register-visual">
+        <div class="visual-content">
+          <i class="bi bi-shop brand-icon"></i>
+          <h2>Join thousands of<br>campus traders.</h2>
+          <p>Create your free account and start buying or selling within your campus today.</p>
+
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <span class="step-text">Create your account with college email</span>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <span class="step-text">List items you want to sell in seconds</span>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <span class="step-text">Connect with buyers & sellers on campus</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Success overlay -->
+    <div class="success-overlay" id="successOverlay">
+      <div class="success-card">
+        <i class="bi bi-check-circle-fill"></i>
+        <h5>Account Created!</h5>
+        <p>Welcome to CampusMart. Redirecting to login…</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      /* ── PASSWORD TOGGLE ──────────────────────────────────── */
+      function togglePw(inputId, iconId) {
+        const pw   = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        pw.type = pw.type === 'password' ? 'text' : 'password';
+        icon.className = pw.type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
+      }
+
+      /* ── PASSWORD STRENGTH ────────────────────────────────── */
+      function checkStrength(val) {
+        const bars   = [document.getElementById('s1'), document.getElementById('s2'),
+                        document.getElementById('s3'), document.getElementById('s4')];
+        const label  = document.getElementById('strengthLabel');
+
+        let score = 0;
+        if (val.length >= 8)               score++;
+        if (/[A-Z]/.test(val))             score++;
+        if (/[0-9]/.test(val))             score++;
+        if (/[^A-Za-z0-9]/.test(val))      score++;
+
+        const colors = ['#c92a2a', '#f59f00', '#2b8a3e', '#2b8a3e'];
+        const labels = ['Weak', 'Fair', 'Good', 'Strong'];
+
+        bars.forEach((b, i) => {
+          b.style.background = i < score ? colors[score - 1] : '#e8e8e8';
+        });
+
+        label.textContent = score === 0 ? 'Min. 8 characters' : labels[score - 1];
+        label.style.color = score === 0 ? '#adb5bd' : colors[score - 1];
+      }
+
+      /* ── REGISTER HANDLER ─────────────────────────────────── */
+      function handleRegister() {
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName  = document.getElementById('lastName').value.trim();
+        const email     = document.getElementById('email').value.trim();
+        const rollNo    = document.getElementById('rollNo').value.trim();
+        const dept      = document.getElementById('dept').value;
+        const password  = document.getElementById('password').value;
+        const confirmPw = document.getElementById('confirmPw').value;
+        const terms     = document.getElementById('terms').checked;
+
+        const errorMsg = document.getElementById('errorMsg');
+        const errorTxt = document.getElementById('errorText');
+
+        const showError = (msg) => {
+          errorTxt.textContent = msg;
+          errorMsg.style.display = 'flex';
+        };
+
+        errorMsg.style.display = 'none';
+
+        if (!firstName || !lastName)        return showError('Please enter your full name.');
+        if (!email || !email.includes('@')) return showError('Enter a valid college email.');
+        if (!rollNo)                        return showError('Roll number is required.');
+        if (!dept)                          return showError('Please select your department.');
+        if (password.length < 8)           return showError('Password must be at least 8 characters.');
+        if (password !== confirmPw)        return showError('Passwords do not match.');
+        if (!terms)                        return showError('Please accept the terms to continue.');
+
+        // Save to localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        if (users.find(u => u.email === email)) {
+          return showError('An account with this email already exists.');
+        }
+
+        users.push({ firstName, lastName, email, rollNo, dept, password });
+        localStorage.setItem('users', JSON.stringify(users));
+
+        // Show success → redirect to login
+        document.getElementById('successOverlay').style.display = 'flex';
+        setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+      }
+
+      /* ── ENTER KEY ────────────────────────────────────────── */
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Enter') handleRegister();
+      });
+    </script>
+  </body>
+</html>
