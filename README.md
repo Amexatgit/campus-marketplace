@@ -2,7 +2,10 @@
 
 A frontend web application where students can buy and sell items within their college campus.
 
-![CampusMart Preview](images/preview.png)
+![CampusMart Preview](images/preview1.png)
+[CampusMart Preview](images/preview2.png)
+[CampusMart Preview](images/preview3.png)
+[CampusMart Preview](images/preview4.png)
 
 ## About
 
