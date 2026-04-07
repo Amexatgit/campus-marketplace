@@ -1,62 +1,103 @@
 <!doctype html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CampusMart</title>
-
-    <!-- Bootstrap -->
-
+    <title>Campus Marketplace | Home</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <!-- Custom CSS -->
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-
-  <body>
-    <!-- NAVBAR -->
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-      <a class="navbar-brand fw-bold" href="index.html">CampusMart</a>
-
-      <div class="ms-auto">
-        <a href="add.html" class="btn btn-outline-light me-2">Sell Item</a>
-        <a href="login.html" class="btn btn-light">Login</a>
+  <body class="bg-light">
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm"
+    >
+      <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="index.html">
+          <i class="fa-solid fa-graduation-cap me-2"></i>CampusMart
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="add.html">Add Product</a>
+            </li>
+            <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+              <a
+                class="btn btn-outline-primary px-4 rounded-pill"
+                href="login.html"
+                >Login</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 
-    <!-- HERO SECTION -->
-
-    <section class="hero d-flex align-items-center text-center text-light">
-      <div class="container">
-        <h1 class="display-4 fw-bold">Buy & Sell Within Campus</h1>
-        <p class="lead">Books, bikes, gadgets — all in one place</p>
-        <a href="#products" class="btn btn-primary btn-lg mt-3"
-          >Explore Items</a
-        >
+    <section class="hero-section text-center py-5 mb-5">
+      <div class="container py-5">
+        <h1 class="display-4 fw-bold text-dark mb-3">Buy & Sell on Campus</h1>
+        <p class="lead text-muted mb-4 max-w-600 mx-auto">
+          Find textbooks, electronics, and dorm essentials from fellow students.
+          Fast, safe, and local.
+        </p>
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="search-box bg-white p-2 rounded-pill shadow-sm d-flex">
+              <span class="d-flex align-items-center ps-3 text-muted"
+                ><i class="fa-solid fa-search"></i
+              ></span>
+              <input
+                type="text"
+                id="search-bar"
+                class="form-control border-0 shadow-none rounded-pill"
+                placeholder="Search for products, books, electronics..."
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- PRODUCTS SECTION -->
+    <main class="container mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold mb-0">Latest Listings</h3>
+      </div>
 
-    <section id="products" class="container my-5">
-      <h2 class="text-center mb-4">Latest Listings</h2>
-      <div class="row" id="productList"></div>
-    </section>
+      <div id="empty-state" class="text-center py-5 d-none">
+        <div class="text-muted mb-3">
+          <i class="fa-solid fa-box-open fa-3x"></i>
+        </div>
+        <h5 class="text-secondary">No products found</h5>
+        <p class="text-muted">
+          Try adjusting your search or add a new product.
+        </p>
+      </div>
 
-    <!-- FOOTER -->
+      <div id="product-list" class="row g-4"></div>
+    </main>
 
-    <footer class="bg-dark text-light text-center py-3">
-      <p>© 2026 CampusMart | Made by Mihir, Sarthak & Amey</p>
-    </footer>
-
-    <!-- JS -->
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
